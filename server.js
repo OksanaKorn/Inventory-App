@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 
@@ -12,7 +12,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');    
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');    
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');      
-    res.setHeader('Access-Control-Allow-Credentials', true);       
+    res.setHeader('Access-Control-Allow-Credentials', true);            
     next();  
 });  
 
@@ -46,6 +46,17 @@ var batchSchema = mongoose.Schema({
 
 var batch = mongoose.model('batches', batchSchema, "batches");
 
+app.get("/api/products",function(req,res){  
+    product.find({},function(err,data){  
+              if(err){  
+                  res.send(err);  
+              }  
+              else{                
+                  res.send(data);  
+                  }  
+          });  
+  })
+
 app.post("/api/batches", function(req, res){ 
       
     var bat = new batch(req.body);  
@@ -73,7 +84,7 @@ app.post("/api/products", function(req, res){
 app.put("/api/products", function(req, res){   
     var productToUpdate = product.findOneAndUpdate({_id:req.body._id}, req.body, function(err,data){  
         if(err){  
-           res.send(err);                
+           res.send(err);               
         }  
         else{        
             res.send({data:"Record has been Updated..!!"});  
@@ -81,16 +92,7 @@ app.put("/api/products", function(req, res){
     })      
 })
 
-app.get("/api/products",function(req,res){  
-    product.find({},function(err,data){  
-              if(err){  
-                  res.send(err);  
-              }  
-              else{                
-                  res.send(data);  
-                  }  
-          });  
-  })
+
 }) 
 
 // listen for requests

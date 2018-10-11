@@ -6,7 +6,7 @@ import { ProductsService } from 'src/app/shared/products.service';
   selector: 'products-list',
   template: `
     <button [routerLink]="['/create-product']" class="new-prod-btn">New Product</button>
-    <div *ngFor="let product of products" class="products-container" [routerLink]="['/products', product.id]">
+    <div *ngFor="let product of products" class="products-container" [routerLink]="['/products', product._id]">
         <div class="products-list">
             <div class="product">{{product.name}}</div>
         </div>
@@ -22,8 +22,23 @@ export class ProductListComponent implements OnInit {
   
   ngOnInit() {
     this.getProducts()
-    this.setProducts()
+    
   }
+
+  getProducts() {
+    this.inventoryService.getProducts()
+      .subscribe( data => {
+        this.products = data
+        this.setProducts()
+      })
+  }
+
+  setProducts() {
+    this.prodService.changeProduct(this.products)
+  }
+}
+
+
 
   // getProducts() {
   //   return this.products
@@ -34,15 +49,3 @@ export class ProductListComponent implements OnInit {
   //   {"id": 2, "name": "water", "batches": []},
   //   {"id": 3, "name": "potato", "batches": []}
   // ]
-
-  setProducts() {
-    this.prodService.changeProduct(this.products)
-  }
-
-  getProducts() {
-    this.inventoryService.getProducts()
-      .subscribe( data => {
-        this.products = JSON.parse(data)
-      })
-  }
-}

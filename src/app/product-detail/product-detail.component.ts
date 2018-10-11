@@ -60,14 +60,14 @@ export class ProductDetailComponent {
 
     ngOnInit() {
         this.prodService.currentProducts.subscribe(products => this.products = products)
-        this.id = this.route.snapshot.params['id']
+        this.id = this.route.snapshot.params.id
         this.getProduct(this.id)
         this.checkBatches()
     }
 
     getProduct(id) {
         for (let i = 0; i < this.products.length; i++) {
-            if(this.products[i].id == id) {
+            if(this.products[i]._id == id) {
                 this.product = this.products[i]
             }
         }
@@ -119,7 +119,7 @@ export class ProductDetailComponent {
             this.checkQuantityBatch()
         }
         this.checkBatchesAfter()
-        this.product.id = this.id
+        this.product._id = this.id
         this.product.batches = this.batches
         let updatedProduct = JSON.stringify(this.product)
         this.editProduct(updatedProduct)
@@ -127,16 +127,18 @@ export class ProductDetailComponent {
     }
 
     editProduct(product) {
+        console.log(product)
         this.inventoryService.editProduct(product)
-        alert(`product ${this.product.name} updated`)
+        .subscribe(
+            product => { 
+             console.log(product);
+            }, 
+            error => {
+               console.log(error)
+            }
+       );
         this.router.navigate(["/products"])
     }
-}
-
-let Product = function(id, name, batches) {
-    this.id = id,
-    this.name = name,
-    this.batches = batches
 }
 
 let Batch = function(name, value = 0) {

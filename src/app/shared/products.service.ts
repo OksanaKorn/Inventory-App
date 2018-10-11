@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class ProductsService {
 
-  private productSource = new BehaviorSubject('default message');
+  private productSource = new BehaviorSubject("default");
   currentProducts = this.productSource.asObservable();
 
   constructor() { }

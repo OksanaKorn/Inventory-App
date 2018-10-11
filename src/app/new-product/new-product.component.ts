@@ -71,9 +71,9 @@ export class NewProductComponent {
             }
         }
     }
-
+    // var inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
     checkQuantityBatch() {
-        let quantityInput = document.getElementById("quantity")
+        let quantityInput = (<HTMLInputElement>document.getElementById("quantity"))
         let batch = new Batch(quantityInput.value, this.quantityValue)
         this.batches.push(batch)
     }
@@ -90,8 +90,16 @@ export class NewProductComponent {
     }
 
     addNewProduct(product) {
+        console.log(product)
         this.inventoryService.addNewProduct(product)
-        alert(`new product created`)
+            .subscribe(
+                product => { 
+                console.log(product);
+                }, 
+                error => { 
+                console.log(error)
+                }
+            );
         this.router.navigate(["/products"])
     }
 
