@@ -1,0 +1,14 @@
+.new-prod-btn {
+    padding: 10px 20px;
+    background-color: #B0C4DE;
+    color: #FFFFFF;
+    border-radius: 20px;
+    font-size: 22px;
+}
+
+.product {
+    border-bottom: 1px solid #E6E6FA;
+    padding: 20px;
+    font-size: 22px;
+    max-width: 800px;
+}
