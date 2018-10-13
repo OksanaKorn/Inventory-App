@@ -77,13 +77,16 @@ export class ProductDetailComponent {
         let batches = this.product.batches
         for (let i = 0; i < batches.length; i++) {
             if (batches[i].name == "batch_no") {
-                document.getElementById("batch_no").checked = true
+                let batch: HTMLInputElement = <HTMLInputElement>document.getElementById("batch_no")
+                batch.checked = true
             }
             else if (batches[i].name == "best_by_date") {
-                document.getElementById("best_by_date").checked = true
+                let batch: HTMLInputElement = <HTMLInputElement>document.getElementById("best_by_date")
+                batch.checked = true
             }
             else if (batches[i].name == "quantity") {
-                document.getElementById("quantity").checked = true
+                let batch: HTMLInputElement = <HTMLInputElement>document.getElementById("quantity")
+                batch.checked = true
                 this.showQuantityValue = true
                 this.quantityValue = batches[i].value
             }
@@ -101,15 +104,16 @@ export class ProductDetailComponent {
     checkBatchesAfter() {
         let batchesInputs = document.getElementsByName("baches")
         for (let i = 0; i < batchesInputs.length; i++) {
-            if(batchesInputs[i].checked) {
-                let batch = new Batch(batchesInputs[i].value)
+            let currentBatch: HTMLInputElement = <HTMLInputElement>batchesInputs[i]
+            if(currentBatch.checked) {
+                let batch = new Batch(currentBatch.value)
                 this.batches.push(batch)
             }
         }
     }
 
     checkQuantityBatch() {
-        let quantityInput = document.getElementById("quantity")
+        let quantityInput: HTMLInputElement = <HTMLInputElement>document.getElementById("quantity")
         let batch = new Batch(quantityInput.value, this.quantityValue)
         this.batches.push(batch)
     }

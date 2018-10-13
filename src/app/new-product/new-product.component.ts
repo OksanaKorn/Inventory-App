@@ -65,15 +65,15 @@ export class NewProductComponent {
     checkBatches() {
         let batchesInputs = document.getElementsByName("baches")
         for (let i = 0; i < batchesInputs.length; i++) {
-            if(batchesInputs[i].checked) {
-                let batch = new Batch(batchesInputs[i].value)
+            let currentBatch: HTMLInputElement = <HTMLInputElement>batchesInputs[i]
+            if(currentBatch.checked) {
+                let batch = new Batch(currentBatch.value)
                 this.batches.push(batch)
             }
         }
     }
-    // var inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
     checkQuantityBatch() {
-        let quantityInput = (<HTMLInputElement>document.getElementById("quantity"))
+        let quantityInput = <HTMLInputElement>document.getElementById("quantity")
         let batch = new Batch(quantityInput.value, this.quantityValue)
         this.batches.push(batch)
     }
